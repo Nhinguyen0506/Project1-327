@@ -1,0 +1,327 @@
+services:
+  # Cluster A
+  cluster_a_master:
+    build: .
+    container_name: cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.2
+      inter_cluster:
+        ipv4_address: 172.20.0.2
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=master
+      - CLUSTER=A
+    volumes:
+      - ./logs:/app/logs
+    command: sh -c "python3 -u /app/master.py"
+
+  cluster_a_node1:
+    build: .
+    container_name: cluster_a_node1
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.3
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=1
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node2:
+    build: .
+    container_name: cluster_a_node2
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.4
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=2
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node3:
+    build: .
+    container_name: cluster_a_node3
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.5
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=3
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node4:
+    build: .
+    container_name: cluster_a_node4
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.6
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=4
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node5:
+    build: .
+    container_name: cluster_a_node5
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.7
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=5
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node6:
+    build: .
+    container_name: cluster_a_node6
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.8
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=6
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node7:
+    build: .
+    container_name: cluster_a_node7
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.9
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=7
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_a_node8:
+    build: .
+    container_name: cluster_a_node8
+    depends_on:
+      - cluster_a_master
+    networks:
+      cluster_a:
+        ipv4_address: 172.18.0.10
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=A
+      - CONTAINER_ID=8
+    command: sh -c "python3 -u /app/node.py"
+
+  # Cluster B
+  cluster_b_master:
+    build: .
+    container_name: cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.2
+      inter_cluster:
+        ipv4_address: 172.20.0.3
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=master
+      - CLUSTER=B
+    volumes:
+      - ./logs:/app/logs
+    command: sh -c "python3 -u /app/master.py"
+
+  cluster_b_node1:
+    build: .
+    container_name: cluster_b_node1
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.3
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=1
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node2:
+    build: .
+    container_name: cluster_b_node2
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.4
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=2
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node3:
+    build: .
+    container_name: cluster_b_node3
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.5
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=3
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node4:
+    build: .
+    container_name: cluster_b_node4
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.6
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=4
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node5:
+    build: .
+    container_name: cluster_b_node5
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.7
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=5
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node6:
+    build: .
+    container_name: cluster_b_node6
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.8
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=6
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node7:
+    build: .
+    container_name: cluster_b_node7
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.9
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=7
+    command: sh -c "python3 -u /app/node.py"
+
+  cluster_b_node8:
+    build: .
+    container_name: cluster_b_node8
+    depends_on:
+      - cluster_b_master
+    networks:
+      cluster_b:
+        ipv4_address: 172.19.0.10
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - ROLE=node
+      - CLUSTER=B
+      - CONTAINER_ID=8
+    command: sh -c "python3 -u /app/node.py"
+
+networks:
+  cluster_a:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+  cluster_b:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
+  inter_cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
